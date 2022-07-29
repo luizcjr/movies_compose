@@ -2,6 +2,8 @@ package com.example.movies.data.di
 
 import com.example.movies.data.network.interceptor.MoviesInterceptor
 import com.example.movies.data.network.service.MoviesService
+import com.example.movies.data.repository.MoviesRepository
+import com.example.movies.data.repository.MoviesRepositoryImpl
 import com.localebro.okhttpprofiler.OkHttpProfilerInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -24,7 +26,7 @@ object DataModules {
 
     private fun repositoryModule(): Module {
         return module {
-
+            single<MoviesRepository> { MoviesRepositoryImpl(get()) }
         }
     }
 

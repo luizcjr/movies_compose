@@ -1,11 +1,8 @@
-package com.example.movies.data.network.service
+package com.example.movies.data.repository
 
 import com.example.movies.data.network.response.DataContainerResponse
 import com.example.movies.data.network.response.MoviesResponse
-import retrofit2.http.GET
 
-interface MoviesService {
-
-    @GET("movie/popular")
+interface MoviesRepository {
     suspend fun getPopular(): DataContainerResponse<MoviesResponse>
 }
