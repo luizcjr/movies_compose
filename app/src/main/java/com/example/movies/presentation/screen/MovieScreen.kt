@@ -14,6 +14,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.movies.presentation.activity.model.Movies
+import com.example.movies.presentation.activity.viewmodel.MainViewModel
 import com.example.movies.presentation.components.HorizontalPagerWithOffsetTransition
 import com.example.movies.presentation.theme.MediumBlack
 import com.example.movies.presentation.theme.cardName
@@ -23,18 +24,25 @@ fun MovieScreen(
     loadingState: State<Boolean?>,
     errorState: State<Boolean?>,
     moviesState: State<Movies?>,
+    viewModel: MainViewModel,
     paddingValues: PaddingValues = PaddingValues(0.dp),
     modifier: Modifier = Modifier
 ) {
-    if (loadingState.value == true) {
-        LoadingView(modifier = Modifier.fillMaxSize())
-    }
-
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
             .background(MediumBlack)
     ) {
+        if (loadingState.value == true) {
+            LoadingView(modifier = Modifier.fillMaxSize())
+        }
+
+        if (errorState.value == true) {
+            ErrorItem(
+                message = "Ocorreu um erro, tente novamente!",
+            ) { viewModel.getMovies() }
+        }
+
         moviesState.value?.let { movies ->
             val (
                 popularLabel,

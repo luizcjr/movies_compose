@@ -40,15 +40,12 @@ fun ErrorItem(
     modifier: Modifier = Modifier,
     onClickRetry: () -> Unit
 ) {
-    Row(
-        modifier = modifier.padding(16.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+    Column(
+        modifier = modifier.padding(16.dp).fillMaxSize(),
     ) {
         Text(
             text = message,
             maxLines = 1,
-            modifier = Modifier.weight(1f),
             style = cardName,
             color = Color.Red
         )

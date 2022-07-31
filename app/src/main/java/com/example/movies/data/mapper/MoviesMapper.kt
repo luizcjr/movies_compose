@@ -10,7 +10,8 @@ object MoviesMapper : AbstractMapper<MoviesResponse, Movie>() {
         Movie(
             imageUrl = "https://image.tmdb.org/t/p/w500${response.posterPath}",
             genres = mapGenresList(listOf(28)).let { if (it.size > 1) it.subList(0, 2) else it },
-            average = response.voteAverage.toString()
+            average = response.voteAverage.toString(),
+            title = response.title
         )
 
     private fun mapGenresList(genreIds: List<Int>): List<String> = mutableListOf<String>()

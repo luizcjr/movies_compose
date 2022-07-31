@@ -27,6 +27,7 @@ fun BottomNavGraph(
                     view.loading.observeAsState(),
                     view.error.observeAsState(),
                     view.movies.observeAsState(),
+                    view,
                     paddingValues
                 )
             }
