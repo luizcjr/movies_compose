@@ -9,7 +9,7 @@ object MoviesMapper : AbstractMapper<MoviesResponse, Movie>() {
     override fun toEntity(response: MoviesResponse) =
         Movie(
             imageUrl = "https://image.tmdb.org/t/p/w500${response.posterPath}",
-            genres = mapGenresList(listOf(28)).let { if (it.size > 1) it.subList(0, 2) else it },
+            genres = mapGenresList(response.genreIds).let { if (it.size > 1) it.subList(0, 2) else it },
             average = response.voteAverage.toString(),
             title = response.title
         )
