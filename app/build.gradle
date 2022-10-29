@@ -4,6 +4,20 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('C:\\Users\\luiz_\\AndroidStudioProjects\\Movies\\store\\debug\\app_key.jks')
+            storePassword '16@@Luiz@@11'
+            keyAlias 'app_key'
+            keyPassword '16@@Luiz@@11'
+        }
+        release {
+            storeFile file('C:\\Users\\luiz_\\AndroidStudioProjects\\Movies\\store\\release\\app_key.jks')
+            storePassword '16@@Luiz@@11'
+            keyAlias 'app_key'
+            keyPassword '16@@Luiz@@11'
+        }
+    }
     compileSdk 32
 
     defaultConfig {
@@ -20,8 +34,21 @@ android {
     }
 
     buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+            applicationIdSuffix '.debug'
+            debuggable true
+        }
+        staging {
+            initWith debug
+            applicationIdSuffix '.staging'
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro', 'proguard-rules-staging.pro'
+        }
         release {
-            minifyEnabled false
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
