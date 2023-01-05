@@ -36,7 +36,7 @@ object MoviesMapper : AbstractMapper<MoviesResponse, Movie>() {
                     GenresEnum.TV.genreId -> add(GenresEnum.TV.genre)
                     GenresEnum.THRILLER.genreId -> add(GenresEnum.THRILLER.genre)
                     GenresEnum.WAR.genreId -> add(GenresEnum.WAR.genre)
-                    else -> add(GenresEnum.WESTERN.genre)
+                    else -> throw IllegalArgumentException("Unknown expression")
                 }
             }
         }

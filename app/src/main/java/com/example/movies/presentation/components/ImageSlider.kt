@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -72,78 +73,81 @@ fun HorizontalPagerWithOffsetTransition(
                 ) = createRefs()
 
                 GlideImage(
-                    imageModel = movies[page].imageUrl,
-                    modifier = modifier
-                        .width(600.dp)
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .wrapContentHeight()
+                        .width(800.dp)
                         .constrainAs(image) {
                             top.linkTo(parent.top)
                             start.linkTo(parent.start)
                             end.linkTo(parent.end)
                         },
+                    imageModel = movies[page].imageUrl ?: "",
                     loading = {
                         LoadingItem()
                     },
                     failure = {
                         Text(text = "image request failed.")
-                    }
+                    },
+                    contentScale = ContentScale.FillHeight
                 )
 
-//                ConstraintLayout(
-//                    modifier = Modifier
-//                        .wrapContentWidth()
-//                        .fillMaxHeight()
-//                        .constrainAs(constraintContent) {
-//                            bottom.linkTo(image.bottom)
-//                            start.linkTo(image.start)
-//                            end.linkTo(image.end)
-//                        }
-//                ) {
-//                    val (
-//                        textName,
-//                        textAverage,
-//                        imageAverage,
-//                        categoryList
-//                    ) = createRefs()
-//
-//                    Text(
-//                        modifier = Modifier
-//                            .padding(all = 16.dp)
-//                            .constrainAs(textName) {
-//                                top.linkTo(parent.top)
-//                                start.linkTo(parent.start)
-//                                end.linkTo(textAverage.start)
-//                            },
-//                        text = movies[page].title,
-//                        color = Color.White,
-//                        style = cardName,
-//                        textAlign = TextAlign.Start
-//                    )
-//
-//                    Text(
-//                        modifier = Modifier
-//                            .padding(all = 16.dp)
-//                            .constrainAs(textAverage) {
-//                                top.linkTo(parent.top)
-//                                end.linkTo(imageAverage.start)
-//                            },
-//                        text = movies[page].average,
-//                        color = Color.White,
-//                        style = cardName,
-//                        textAlign = TextAlign.Start
-//                    )
-//
-//                    Icon(
-//                        painter = painterResource(id = R.drawable.ic_baseline_favorite_24),
-//                        contentDescription = "Estrela",
-//                        tint = Color.Yellow,
-//                        modifier = Modifier
-//                            .constrainAs(imageAverage) {
-//                                top.linkTo(parent.top)
-//                                end.linkTo(parent.end)
-//                            }
-//                    )
-//
-//                }
+                ConstraintLayout(
+                    modifier = Modifier
+                        .wrapContentWidth()
+                        .constrainAs(constraintContent) {
+                            bottom.linkTo(image.bottom)
+                            start.linkTo(image.start)
+                            end.linkTo(image.end)
+                        }
+                ) {
+                    val (
+                        textName,
+                        textAverage,
+                        imageAverage,
+                        categoryList
+                    ) = createRefs()
+
+                    Text(
+                        modifier = Modifier
+                            .padding(all = 16.dp)
+                            .constrainAs(textName) {
+                                top.linkTo(parent.top)
+                                start.linkTo(parent.start)
+                                end.linkTo(parent.end)
+                            },
+                        text = movies[page].title,
+                        color = Color.White,
+                        style = cardName,
+                        textAlign = TextAlign.Start
+                    )
+
+                    Text(
+                        modifier = Modifier
+                            .constrainAs(textAverage) {
+                                top.linkTo(textName.bottom)
+                                start.linkTo(parent.start)
+                                end.linkTo(parent.end)
+                            },
+                        text = movies[page].average,
+                        color = Color.White,
+                        style = cardName,
+                        textAlign = TextAlign.Start
+                    )
+
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_baseline_favorite_24),
+                        contentDescription = "Estrela",
+                        tint = Color.Yellow,
+                        modifier = Modifier
+                            .constrainAs(imageAverage) {
+                                top.linkTo(textAverage.top)
+                                bottom.linkTo(textAverage.bottom)
+                                start.linkTo(textAverage.end)
+                            }
+                    )
+
+                }
             }
         }
     }
