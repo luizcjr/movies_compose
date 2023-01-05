@@ -11,6 +11,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
@@ -94,6 +95,7 @@ fun HorizontalPagerWithOffsetTransition(
 
                 ConstraintLayout(
                     modifier = Modifier
+                        .fillMaxWidth()
                         .wrapContentWidth()
                         .constrainAs(constraintContent) {
                             bottom.linkTo(image.bottom)
@@ -101,6 +103,7 @@ fun HorizontalPagerWithOffsetTransition(
                             end.linkTo(image.end)
                         }
                 ) {
+
                     val (
                         textName,
                         textAverage,
@@ -110,24 +113,26 @@ fun HorizontalPagerWithOffsetTransition(
 
                     Text(
                         modifier = Modifier
-                            .padding(all = 16.dp)
+                            .padding(start = 16.dp, top = 16.dp, end = 8.dp)
                             .constrainAs(textName) {
                                 top.linkTo(parent.top)
                                 start.linkTo(parent.start)
-                                end.linkTo(parent.end)
+                                end.linkTo(textAverage.start)
                             },
                         text = movies[page].title,
                         color = Color.White,
                         style = cardName,
-                        textAlign = TextAlign.Start
+                        textAlign = TextAlign.Start,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
                     )
 
                     Text(
                         modifier = Modifier
+                            .padding(end = 8.dp, top = 16.dp)
                             .constrainAs(textAverage) {
-                                top.linkTo(textName.bottom)
-                                start.linkTo(parent.start)
-                                end.linkTo(parent.end)
+                                top.linkTo(parent.top)
+                                end.linkTo(imageAverage.start)
                             },
                         text = movies[page].average,
                         color = Color.White,
@@ -143,10 +148,9 @@ fun HorizontalPagerWithOffsetTransition(
                             .constrainAs(imageAverage) {
                                 top.linkTo(textAverage.top)
                                 bottom.linkTo(textAverage.bottom)
-                                start.linkTo(textAverage.end)
+                                end.linkTo(parent.end)
                             }
                     )
-
                 }
             }
         }
