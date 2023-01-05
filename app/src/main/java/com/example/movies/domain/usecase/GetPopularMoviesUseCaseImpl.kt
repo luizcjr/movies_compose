@@ -10,9 +10,6 @@ class GetPopularMoviesUseCaseImpl(
 ) : GetPopularMoviesUseCase {
 
     @Throws(IOException::class)
-    override suspend fun get(): List<Movie> = try {
+    override suspend fun get(): List<Movie> =
         repository.getPopular().results.map { MoviesMapper.toEntity(it) }
-    } catch (e: Exception) {
-        throw e
-    }
 }
