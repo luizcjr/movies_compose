@@ -33,21 +33,40 @@ fun MovieScreen(
             .fillMaxSize()
             .background(MediumBlack)
     ) {
+        val (
+            loadingView,
+            errorView,
+            popularLabel,
+            imageSlider
+        ) = createRefs()
+
         if (loadingState.value == true) {
-            LoadingView(modifier = Modifier.fillMaxSize())
+            LoadingView(modifier = Modifier
+                .fillMaxSize()
+                .constrainAs(loadingView) {
+                    top.linkTo(parent.top)
+                    end.linkTo(parent.end)
+                    start.linkTo(parent.start)
+                    bottom.linkTo(parent.bottom)
+                })
         }
 
         if (errorState.value == true) {
             ErrorItem(
                 message = "Ocorreu um erro, tente novamente!",
+                modifier = Modifier
+                    .fillMaxSize()
+                    .constrainAs(loadingView) {
+                        top.linkTo(parent.top)
+                        end.linkTo(parent.end)
+                        start.linkTo(parent.start)
+                        bottom.linkTo(parent.bottom)
+                    }
             ) { viewModel.getMovies() }
         }
 
         moviesState.value?.let { movies ->
-            val (
-                popularLabel,
-                imageSlider
-            ) = createRefs()
+
 
             Text(
                 modifier = Modifier
