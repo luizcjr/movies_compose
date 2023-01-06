@@ -29,7 +29,7 @@ fun BottomNavGraph(
                 }
 
                 MovieScreen(
-                    state = view.movies.observeAsState(),
+                    state = view.mainPresenter.getObservable().observeAsState(),
                     viewModel = view
                 )
             }
