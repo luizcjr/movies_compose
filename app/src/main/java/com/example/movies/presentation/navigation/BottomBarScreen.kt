@@ -8,20 +8,20 @@ sealed class BottomBarScreen(
     val icon: Int
 ) {
     object Movies : BottomBarScreen(
-        "movies",
-        "Filmes",
-        R.drawable.ic_baseline_movie_24
+        route = "movies",
+        title = "Filmes",
+        icon = R.drawable.ic_baseline_movie_24
     )
 
     object Series : BottomBarScreen(
-        "series",
-        "Séries",
-        R.drawable.ic_baseline_local_movies_24
+        route = "series",
+        title = "Séries",
+        icon = R.drawable.ic_baseline_local_movies_24
     )
 
     object Favorites : BottomBarScreen(
-        "favorites",
-        "Favoritos",
-        R.drawable.ic_baseline_favorite_24
+        route = "favorites",
+        title = "Favoritos",
+        icon = R.drawable.ic_baseline_favorite_24
     )
 }

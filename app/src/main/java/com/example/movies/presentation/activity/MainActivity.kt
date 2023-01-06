@@ -42,7 +42,7 @@ class MainActivity : ComponentActivity() {
                         BottomNavGraph(
                             navController = navController,
                             viewModel = viewModel,
-                            paddingValues = it
+                            lifecycleOwner = this
                         )
                     }
                 }
@@ -60,8 +60,13 @@ fun DefaultPreview() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colors.background
         ) {
-            Scaffold(bottomBar = { BottomBar(navController = navController) }) {
-                BottomNavGraph(navController = navController, viewModel = null, paddingValues = it)
+            Scaffold(topBar = {
+                TopBarLayout()
+            },
+                bottomBar = {
+                    BottomBar(navController = navController)
+                }) {
+                BottomNavGraph(navController = navController, viewModel = null)
             }
         }
     }

@@ -1,9 +1,8 @@
 package com.example.movies.presentation.navigation
 
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.unit.dp
+import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -15,20 +14,23 @@ import com.example.movies.presentation.screen.SerieScreen
 @Composable
 fun BottomNavGraph(
     navController: NavHostController,
-    viewModel: MainViewModel?,
-    paddingValues: PaddingValues = PaddingValues(0.dp)
+    viewModel: MainViewModel? = null,
+    lifecycleOwner: LifecycleOwner? = null
 ) {
 
     NavHost(navController = navController, startDestination = BottomBarScreen.Movies.route) {
         composable(BottomBarScreen.Movies.route) {
             viewModel?.let { view ->
                 view.getMovies()
+                lifecycleOwner?.let {
+                    view.moviesState.observe(it) { movies ->
+                        view.present(movies)
+                    }
+                }
+
                 MovieScreen(
-                    view.loading.observeAsState(),
-                    view.error.observeAsState(),
-                    view.movies.observeAsState(),
-                    view,
-                    paddingValues
+                    state = view.movies.observeAsState(),
+                    viewModel = view
                 )
             }
         }

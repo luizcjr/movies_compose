@@ -1,5 +1,6 @@
 package com.example.movies.presentation.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
@@ -95,6 +96,8 @@ fun HorizontalPagerWithOffsetTransition(
 
                 ConstraintLayout(
                     modifier = Modifier
+                        .padding(all = 16.dp)
+                        .background(Color.Black)
                         .fillMaxWidth()
                         .wrapContentWidth()
                         .constrainAs(constraintContent) {
@@ -113,7 +116,7 @@ fun HorizontalPagerWithOffsetTransition(
 
                     Text(
                         modifier = Modifier
-                            .padding(start = 16.dp, top = 16.dp, end = 8.dp)
+                            .padding(end = 16.dp)
                             .constrainAs(textName) {
                                 top.linkTo(parent.top)
                                 start.linkTo(parent.start)
@@ -129,7 +132,7 @@ fun HorizontalPagerWithOffsetTransition(
 
                     Text(
                         modifier = Modifier
-                            .padding(end = 8.dp, top = 16.dp)
+                            .padding(end = 8.dp)
                             .constrainAs(textAverage) {
                                 top.linkTo(parent.top)
                                 end.linkTo(imageAverage.start)
@@ -141,15 +144,15 @@ fun HorizontalPagerWithOffsetTransition(
                     )
 
                     Icon(
-                        painter = painterResource(id = R.drawable.ic_baseline_favorite_24),
-                        contentDescription = "Estrela",
-                        tint = Color.Yellow,
                         modifier = Modifier
                             .constrainAs(imageAverage) {
                                 top.linkTo(textAverage.top)
                                 bottom.linkTo(textAverage.bottom)
                                 end.linkTo(parent.end)
-                            }
+                            },
+                        painter = painterResource(id = R.drawable.ic_baseline_favorite_24),
+                        contentDescription = "Estrela",
+                        tint = Color.Yellow
                     )
                 }
             }

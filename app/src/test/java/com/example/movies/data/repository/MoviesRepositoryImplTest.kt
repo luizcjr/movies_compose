@@ -6,6 +6,7 @@ import com.nhaarman.mockitokotlin2.*
 import kotlinx.coroutines.runBlocking
 import okio.IOException
 import org.junit.Assert.assertEquals
+import org.junit.Assert.fail
 import org.junit.Test
 import retrofit2.Response
 
@@ -25,6 +26,6 @@ class MoviesRepositoryImplTest {
     fun `given repository, when call get popular, then exception`() = runBlocking {
         whenever(service.getPopular()).doThrow(IOException())
         verify(repository.getPopular())
-        Unit
+        fail()
     }
 }
