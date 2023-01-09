@@ -57,7 +57,7 @@ fun HorizontalPagerWithOffsetTransition(
                 .fillMaxWidth()
                 .aspectRatio(1f)
         ) {
-            MoviesCard(page = page, movies = movies)
+            MoviesCard(movie = movies[page])
         }
     }
 }

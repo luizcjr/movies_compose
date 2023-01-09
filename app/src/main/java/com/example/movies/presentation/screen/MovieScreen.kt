@@ -36,7 +36,9 @@ fun MovieScreen(
             loadingView,
             errorView,
             popularLabel,
-            imageSlider
+            imageSlider,
+            newLabel,
+            newList
         ) = createRefs()
 
         state?.let {
@@ -89,6 +91,21 @@ fun MovieScreen(
                         end.linkTo(parent.end)
                         start.linkTo(parent.start)
                     },
+                )
+
+                Text(
+                    modifier = Modifier
+                        .padding(all = 16.dp)
+                        .fillMaxWidth()
+                        .constrainAs(newLabel) {
+                            top.linkTo(imageSlider.bottom)
+                            end.linkTo(parent.end)
+                            start.linkTo(parent.start)
+                        },
+                    text = "Novos",
+                    color = Color.White,
+                    style = cardName,
+                    textAlign = TextAlign.Start
                 )
             }
         }
